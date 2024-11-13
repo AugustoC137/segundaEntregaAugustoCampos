@@ -3,10 +3,12 @@
     <h2>Detalhes da música {{ musica.name }} ({{ musica.release_year }})</h2>
     
     <section class="dados-de-musica">
-      <img src="{{ musica.poster_url }}" alt="Capa da música {{ musica.name}}" />
+      <img src="{{ musicas.poster_url }}" alt="Capa da música {{ musicas.name}}" />
       <ul>
-        <li>Nome: {{ musica.name }}</li>
-        <li>Ano de Lançamento: {{ musica.release_year }}</li>
+        <li>Nome: {{ musicas.name }}</li>
+        <li>Ano de Lançamento: {{ musicas.release_year }}</li>
+        <li><a href="{% url 'musicas:update' musicas.id %}">Editar</a></li>
+        <li><a href="{% url 'musicas:delete' musicas.id %}">Apagar</a></li>
       </ul>
     </section>
     

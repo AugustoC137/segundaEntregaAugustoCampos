@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'musicas:delete' musicas.id %}" method="post">
+  {% csrf_token %}
+  <p>
+    Você tem certeza que deseja apagar a musica "{{ musicas.name }} ({{ musicas.release_year }})"?
+    </p>
+    <button type="submit">Apagar</button> </form>
+{% endblock content %}

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Musica
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 
 
 def detail_musica(request, musica_id):
@@ -11,10 +12,9 @@ def detail_musica(request, musica_id):
     context = {'musicas': musicas}
     return render(request, 'musicas/detail.html', context)
 
-def list_musica(request):
-    musicas_list = Musica.objects.all()
-    context = {'musicas_list': musicas_list}
-    return render(request, 'musicas/index.html', context)
+class MusicaListView(generic.ListView):
+    model = Musica
+    template_name = 'musicas/index.html'
 
 def search_musica(request):
     context = {}

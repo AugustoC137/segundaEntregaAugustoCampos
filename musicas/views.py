@@ -7,11 +7,10 @@ from .forms import MusicaForm
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-
-def detail_musica(request, musica_id):
-    musicas = get_object_or_404(Musica, pk=musica_id)
-    context = {'musicas': musicas}
-    return render(request, 'musicas/detail.html', context)
+class MusicaDetailView(generic.DetailView):
+    model = Musica
+    template_name = 'musicas/detail.html'
+    context_object_name = 'musica'
 
 class MusicaListView(generic.ListView):
     model = Musica

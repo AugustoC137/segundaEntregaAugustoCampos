@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from .temp_data import musica_data
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -30,6 +29,7 @@ def create_musica(request):
         musicas_name = request.POST['name']
         musicas_release_year = request.POST['release_year']
         musicas_poster_url = request.POST['poster_url']
+
         musicas = Musica(name=musicas_name,
                       release_year=musicas_release_year,
                       poster_url=musicas_poster_url)

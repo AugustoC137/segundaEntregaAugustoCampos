@@ -1,11 +1,13 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class Musica(models.Model):
     name = models.CharField(max_length=255)
     release_year = models.IntegerField()
     poster_url = models.URLField(max_length=200, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.name} ({self.release_year})'

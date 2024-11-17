@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Musica
+from .forms import MusicaForm
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
@@ -15,6 +16,7 @@ def detail_musica(request, musica_id):
 class MusicaListView(generic.ListView):
     model = Musica
     template_name = 'musicas/index.html'
+    context_object_name = 'musicas_list'
 
 def search_musica(request):
     context = {}
@@ -25,32 +27,45 @@ def search_musica(request):
     return render(request, 'musicas/search.html', context)
 
 def create_musica(request):
-    if request.method == 'POST':
-        musicas_name = request.POST['name']
-        musicas_release_year = request.POST['release_year']
-        musicas_poster_url = request.POST['poster_url']
+        if request.method == 'POST':
+            form = MusicaForm(request.POST)
+            if form.is_valid():
+                musicas_name = request.POST['name']
+                musicas_release_year = request.POST['release_year']
+                musicas_poster_url = request.POST['poster_url']
 
-        musicas = Musica(name=musicas_name,
-                      release_year=musicas_release_year,
-                      poster_url=musicas_poster_url)
-        musicas.save()
-        return HttpResponseRedirect(
-            reverse('musicas:detail', args=(musicas.id, )))
-    else:
-        return render(request, 'musicas/create.html', {})
+                musicas = Musica(name=musicas_name,
+                            release_year=musicas_release_year,
+                            poster_url=musicas_poster_url)
+                musicas.save()
+                return HttpResponseRedirect(
+                    reverse('musicas:detail', args=(musicas.id, )))
+        else:
+            form = MusicaForm()
+        context = {'form': form}
+        return render(request, 'musicas/create.html', context)
 
 def update_musica(request, musicas_id):
     musicas = get_object_or_404(Musica, pk=musicas_id)
 
     if request.method == "POST":
-        musicas.name = request.POST['name']
-        musicas.release_year = request.POST['release_year']
-        musicas.poster_url = request.POST['poster_url']
-        musicas.save()
-        return HttpResponseRedirect(
-            reverse('musicas:detail', args=(musicas.id, )))
+        form = MusicaForm(request.POST)
+        if form.is_valid():
+            musicas.name = request.POST['name']
+            musicas.release_year = request.POST['release_year']
+            musicas.poster_url = request.POST['poster_url']
+            musicas.save()
+            return HttpResponseRedirect(
+                reverse('musicas:detail', args=(musicas.id, )))
+    else:
+        form = MusicaForm(
+            initial={
+                'name': musicas.name,
+                'release_year': musicas.release_year,
+                'poster_url': musicas.poster_url
+            })
 
-    context = {'musicas': musicas}
+    context = {'musicas': musicas, 'form': form}
     return render(request, 'musicas/update.html', context)
 
 

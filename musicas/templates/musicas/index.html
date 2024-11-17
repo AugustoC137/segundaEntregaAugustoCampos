@@ -11,7 +11,7 @@
 </section>
 {% if musicas_list %}
 <section class="lista-de-cards">
-  {% for musicas in musicas_list %}
+  {% for musicas in object_list %}
   <article class="card">
     <a href="{% url 'musicas:detail' musicas.id %}"> 
         <img src="{{ musicas.poster_url }}" alt="Capa da música {{ musicas.name }}" />

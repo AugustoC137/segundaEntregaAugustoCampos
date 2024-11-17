@@ -11,6 +11,28 @@
         <li><a href="{% url 'musicas:update' musicas.id %}">Editar</a></li>
         <li><a href="{% url 'musicas:delete' musicas.id %}">Apagar</a></li>
       </ul>
-    </section>
+      <hr>
+
+      <section>
+          <header>
+              <h3>Comentários</h3>
+          </header>
+          <ul>
+              {% if musicas.comment_set.all %}
+                  {% for comment in musicas.comment_set.all %}
+                      <figure>
+                          <blockquote>
+                              "{{ comment.text }}"
+                          </blockquote>
+                          <figcaption>—{{ comment.author }} comentou: {{ comment.created_at|date:"d M Y H:i" }}</figcaption>
+                      </figure>
+                  {% endfor %}
+              {% else %}
+                  <p>Ainda não existe nenhum comentário.</p>
+              {% endif %}
+          </ul>
+          <hr>
+          <a href="{% url 'musicas:comment' musicas.pk %}"><button>Deixe seu comentário</button></a>
+      </section>
     
     {% endblock content %}

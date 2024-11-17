@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Musica, Review
+from .models import Musica, Comment
 
 admin.site.register(Musica)
-admin.site.register(Review)
+admin.site.register(Comment)

@@ -13,11 +13,11 @@ class Musica(models.Model):
         return f'{self.name} ({self.release_year})'
 
 
-class Review(models.Model):
+class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
-    likes = models.IntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
     musicas = models.ForeignKey(Musica, on_delete=models.CASCADE)
 
     def __str__(self):

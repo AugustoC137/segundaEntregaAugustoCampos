@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Musica
+from .models import Musica, Comment
 
 
 class MusicaForm(ModelForm):
@@ -14,4 +14,16 @@ class MusicaForm(ModelForm):
             'name': 'Nome',
             'release_year': 'Data de Lançamento',
             'poster_url': 'URL da capa',
+        }
+        
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'author',
+            'text',
+        ]
+        labels = {
+            'author': 'Usuário',
+            'text': 'Comentário',
         }

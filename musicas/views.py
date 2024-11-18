@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from .models import Musica, Comment
+from django.urls import reverse, reverse_lazy
+from .models import Musica, Comment, List
 from .forms import MusicaForm, CommentForm
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
@@ -95,3 +95,14 @@ def create_comment(request, musicas_id):
         form = CommentForm()
     context = {'form': form, 'musicas': musicas}
     return render(request, 'musicas/comment.html', context)
+
+class ListListView(generic.ListView):
+    model = List
+    template_name = 'musicas/lists.html'
+
+
+class ListCreateView(generic.CreateView):
+    model = List
+    template_name = 'musicas/create_list.html'
+    fields = ['name', 'author', 'musicas']
+    success_url = reverse_lazy('musicas:lists')

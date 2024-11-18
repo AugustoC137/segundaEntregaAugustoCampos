@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Criar Lista de músicas
+{% endblock title %}
+
+{% block content %}
+<h2>Criar Lista</h2>
+
+<form action="{% url 'musicas:create-list' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Criar</button>
+</form>
+
+{% endblock content %}

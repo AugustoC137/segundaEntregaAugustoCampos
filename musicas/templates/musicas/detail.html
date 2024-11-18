@@ -10,6 +10,9 @@
         <li>Publicado em: {{ musicas.created_at|date:"d M Y H:i" }}</li>
         <li><a href="{% url 'musicas:update' musicas.id %}">Editar</a></li>
         <li><a href="{% url 'musicas:delete' musicas.id %}">Apagar</a></li>
+        {% if musicas.list_set.all %}
+            <li>Incluso nas Listas: {{ musicas.list_set.all|join:", " }} </li>
+        {% endif %}
       </ul>
       <hr>
 

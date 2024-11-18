@@ -11,4 +11,6 @@ urlpatterns = [
     path('update/<int:musicas_id>/', views.update_musica, name='update'),
     path('delete/<int:musicas_id>/', views.delete_musica, name='delete'),
     path('<int:musicas_id>/review/', views.create_comment, name='comment'),
+    path('lists/', views.ListListView.as_view(), name='lists'),
+    path('lists/create', views.ListCreateView.as_view(), name='create-list'),
 ]
